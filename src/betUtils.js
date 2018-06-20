@@ -1,5 +1,5 @@
 /* eslint import/prefer-default-export: 0 */
-const { getTeamResults } = require('./API');
+const { getAllMathStatistic } = require('./API');
 
 const bettingGroupsCount = 8;
 const users = [
@@ -74,10 +74,10 @@ const users = [
     ],
   }];
 
-let teamStats = null;
+let teamPoints = null;
 
 function teamActualPoint(team) {
-  return teamStats.find(stat => stat.country === team).points;
+  return teamPoints[team];
 }
 
 function teamWithPoint(team) {
@@ -89,8 +89,50 @@ function userPoints(user) {
     sum + teamActualPoint(team), 0);
 }
 
+function initIfUndefinedTeamPoint(team) {
+  if (teamPoints[team] === undefined) {
+    teamPoints[team] = 0;
+  }
+}
+
+function initCountriesPoints(match) {
+  initIfUndefinedTeamPoint(match.home_team.country);
+  initIfUndefinedTeamPoint(match.away_team.country);
+}
+
+function addShutOutPoints(match) {
+  if (match.home_team.goals === 0) {
+    teamPoints[match.away_team.country] += 1;
+  }
+  if (match.away_team.goals === 0) {
+    teamPoints[match.home_team.country] += 1;
+  }
+}
+
+async function calcTeamsPoint() {
+  if (teamPoints !== null) {
+    return;
+  }
+  teamPoints = {};
+  const allmatches = await getAllMathStatistic();
+  const finishedMatches = allmatches.filter(match => match.winner !== null);
+
+  finishedMatches.forEach((match) => {
+    initCountriesPoints(match);
+
+    if (match.winner === 'Draw') {
+      teamPoints[match.home_team.country] += 1;
+      teamPoints[match.away_team.country] += 1;
+    } else {
+      teamPoints[match.winner] += 3;
+    }
+    addShutOutPoints(match);
+  });
+  console.log(teamPoints);
+}
+
 export async function convertDataToTable() {
-  teamStats = await getTeamResults();
+  await calcTeamsPoint();
   const headers = users.map(user =>
     ({
       text: user.name,
