@@ -1,78 +1,8 @@
 /* eslint import/prefer-default-export: 0 */
 const { getAllMathStatistic } = require('./API');
+const { users } = require('./bettingDatas');
 
 const bettingGroupsCount = 8;
-const users = [
-  {
-    name: 'Joe',
-    value: 'joe',
-    bettedCountries: [
-      'Argentina',
-      'Spain',
-      'Switzerland',
-      'Uruguay',
-      'Egypt',
-      'England',
-      'Japan',
-      'Peru',
-    ],
-  },
-  {
-    name: 'Ilcsi',
-    value: 'ilcsi',
-    bettedCountries: [
-      'Argentina',
-      'Spain',
-      'Sweden',
-      'Uruguay',
-      'Senegal',
-      'England',
-      'Japan',
-      'Peru',
-    ],
-  },
-  {
-    name: 'Viki',
-    value: 'viki',
-    bettedCountries: [
-      'Germany',
-      'Spain',
-      'Switzerland',
-      'Colombia',
-      'Egypt',
-      'Croatia',
-      'Australia',
-      'Nigeria',
-    ],
-  },
-  {
-    name: 'Dani',
-    value: 'dani',
-    bettedCountries: [
-      'Argentina',
-      'France',
-      'Denmark',
-      'Uruguay',
-      'Egypt',
-      'England',
-      'Australia',
-      'Peru',
-    ],
-  },
-  {
-    name: 'Peti',
-    value: 'peti',
-    bettedCountries: [
-      'Germany',
-      'Belgium',
-      'Denmark',
-      'Uruguay',
-      'Senegal',
-      'Croatia',
-      'Japan',
-      'Peru',
-    ],
-  }];
 
 let teamPoints = null;
 
@@ -126,28 +56,68 @@ async function calcTeamsPoint() {
     } else {
       teamPoints[match.winner] += 3;
     }
+
     addShutOutPoints(match);
   });
 }
 
 export async function convertDataToTable() {
   await calcTeamsPoint();
-  const headers = users.map(user =>
-    ({
-      text: user.name,
-      value: user.name.toLowerCase(),
-      sortable: false,
-    }));
-  const rows = [];
-  for (let i = 0; i < bettingGroupsCount; i += 1) {
-    const row = users.reduce((bet, user) =>
-      ({ ...bet, [user.value]: teamWithPoint(user.bettedCountries[i]) }), {});
-    rows.push(row);
-  }
+  const headers = [
+    {
+      text: 'Entrant',
+      value: 'name',
+    },
+    {
+      text: 'Points',
+      value: 'points',
+    },
+    {
+      text: 'Group 1',
+      value: 'group1',
+    },
+    {
+      text: 'Group 2',
+      value: 'group2',
+    },
+    {
+      text: 'Group 3',
+      value: 'group3',
+    },
+    {
+      text: 'Group 4',
+      value: 'group4',
+    },
+    {
+      text: 'Group 5',
+      value: 'group5',
+    },
+    {
+      text: 'Group 6',
+      value: 'group6',
+    },
+    {
+      text: 'Group 7',
+      value: 'group7',
+    },
+    {
+      text: 'Group 8',
+      value: 'group8',
+    },
+  ];
 
-  const sum = users.reduce((sumRow, user) =>
-    ({ ...sumRow, [user.value]: userPoints(user) }), {});
-  rows.push(sum);
+  const usersWithData = users.map((user) => {
+    const userWithTeamsAndPoints = user;
+    for (let i = 0; i < bettingGroupsCount; i += 1) {
+      userWithTeamsAndPoints[`group${i + 1}`] =
+        teamWithPoint(user.bettedCountries[i]);
+      userWithTeamsAndPoints.points = userPoints(user);
+    }
+    return userWithTeamsAndPoints;
+  });
+
+  usersWithData.sort((a, b) => b.points - a.points);
+  const rows = usersWithData;
   return {
     headers,
     rows,

@@ -37,13 +37,13 @@ export default {
       const data = await getTodaysMatches();
       this.todaysMatches = data.map(match => ({
         ...match,
-        datetime: kkk(new Date(match.datetime))
+        datetime: dateFormatToHUN(new Date(match.datetime))
       }));
     }
   }
 };
 
-function kkk(date) {
+function dateFormatToHUN(date) {
   return `${date.toLocaleString("HU")}`;
 }
 </script>
