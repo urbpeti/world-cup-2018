@@ -128,7 +128,6 @@ async function calcTeamsPoint() {
     }
     addShutOutPoints(match);
   });
-  console.log(teamPoints);
 }
 
 export async function convertDataToTable() {

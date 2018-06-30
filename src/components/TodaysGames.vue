@@ -2,7 +2,7 @@
 <v-layout wrap justify-space-between>
  <v-flex class="xs12 mt-2">
   <v-card> 
-    <v-card-title>Today's Games 🦔</v-card-title>
+    <v-card-title>Today's Games</v-card-title>
     <v-list>
       <template v-for="match in todaysMatches">
         <div :key="match.fifa_id">
