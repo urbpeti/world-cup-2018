@@ -15,8 +15,7 @@ function teamWithPoint(team) {
 }
 
 function userPoints(user) {
-  return user.bettedCountries.reduce((sum, team) =>
-    sum + teamActualPoint(team), 0);
+  return user.bettedCountries.reduce((sum, team) => sum + teamActualPoint(team), 0);
 }
 
 function initIfUndefinedTeamPoint(team) {
@@ -39,6 +38,10 @@ function addShutOutPoints(match) {
   }
 }
 
+function isPeanlties(match) {
+  return match.home_team.penalties + match.away_team.penalties > 0;
+}
+
 async function calcTeamsPoint() {
   if (teamPoints !== null) {
     return;
@@ -47,16 +50,21 @@ async function calcTeamsPoint() {
   const allmatches = await getAllMathStatistic();
   const finishedMatches = allmatches.filter(match => match.winner !== null);
 
-  finishedMatches.forEach((match) => {
+  finishedMatches.forEach(match => {
     initCountriesPoints(match);
 
     if (match.winner === 'Draw') {
-      teamPoints[match.home_team.country] += 1;
       teamPoints[match.away_team.country] += 1;
+      teamPoints[match.home_team.country] += 1;
     } else {
       teamPoints[match.winner] += 3;
     }
 
+    if (isPeanlties(match)) {
+      teamPoints[match.away_team.country] += 1;
+      teamPoints[match.home_team.country] += 1;
+      teamPoints[match.winner] -= 1;
+    }
     addShutOutPoints(match);
   });
 }
@@ -106,11 +114,10 @@ export async function convertDataToTable() {
     },
   ];
 
-  const usersWithData = users.map((user) => {
+  const usersWithData = users.map(user => {
     const userWithTeamsAndPoints = user;
     for (let i = 0; i < bettingGroupsCount; i += 1) {
-      userWithTeamsAndPoints[`group${i + 1}`] =
-        teamWithPoint(user.bettedCountries[i]);
+      userWithTeamsAndPoints[`group${i + 1}`] = teamWithPoint(user.bettedCountries[i]);
       userWithTeamsAndPoints.points = userPoints(user);
     }
     return userWithTeamsAndPoints;

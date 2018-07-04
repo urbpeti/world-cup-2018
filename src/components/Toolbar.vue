@@ -37,12 +37,12 @@
 <script>
 export default {
   data: () => ({
-    drawer: false
+    drawer: false,
   }),
   methods: {
     toogleDrawer() {
       this.drawer = !this.drawer;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -79,16 +79,7 @@ const users = [
   },
   {
     name: 'Vic Marasco',
-    bettedCountries: [
-      'Brazil',
-      'Poland',
-      'Denmark',
-      'Mexico',
-      'Iran',
-      'Croatia',
-      'Japan',
-      'Peru',
-    ],
+    bettedCountries: ['Brazil', 'Poland', 'Denmark', 'Mexico', 'Iran', 'Croatia', 'Japan', 'Peru'],
   },
   {
     name: 'Gabi Bayer',
@@ -274,16 +265,7 @@ const users = [
   },
   {
     name: 'Brent Craige',
-    bettedCountries: [
-      'Brazil',
-      'France',
-      'Iceland',
-      'Mexico',
-      'Egypt',
-      'England',
-      'Japan',
-      'Peru',
-    ],
+    bettedCountries: ['Brazil', 'France', 'Iceland', 'Mexico', 'Egypt', 'England', 'Japan', 'Peru'],
   },
   {
     name: 'Jennifer & Leo Perez del Burgo',

@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import { getTodaysMatches } from "../API.js";
+import { getTodaysMatches } from '../API.js';
 
 export default {
   data: () => ({
-    todaysMatches: []
+    todaysMatches: [],
   }),
   mounted() {
     this.getTodaysMatches();
@@ -37,13 +37,13 @@ export default {
       const data = await getTodaysMatches();
       this.todaysMatches = data.map(match => ({
         ...match,
-        datetime: dateFormatToHUN(new Date(match.datetime))
+        datetime: dateFormatToHUN(new Date(match.datetime)),
       }));
-    }
-  }
+    },
+  },
 };
 
 function dateFormatToHUN(date) {
-  return `${date.toLocaleString("HU")}`;
+  return `${date.toLocaleString('HU')}`;
 }
 </script>
