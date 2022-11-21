@@ -1,8 +1,8 @@
 /* eslint import/prefer-default-export: 0 */
 
-const TODAYS_MATHES_URL = 'http://worldcup.sfg.io/matches/today';
-const TEAM_RESULTS_URL = 'http://worldcup.sfg.io/teams/results';
-const ALL_MATH_STAT_URL = 'http://worldcup.sfg.io/matches';
+const TODAYS_MATHES_URL = 'https://worldcupjson.net/matches/today';
+const TEAM_RESULTS_URL = 'https://worldcupjson.net/teams';
+const ALL_MATH_STAT_URL = 'https://worldcupjson.net/matches';
 
 export async function getTodaysMatches() {
   try {

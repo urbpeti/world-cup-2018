@@ -7,7 +7,11 @@ const bettingGroupsCount = 8;
 let teamPoints = null;
 
 function teamActualPoint(team) {
-  return teamPoints[team];
+  if (teamPoints && teamPoints[team] !== undefined) {
+    return teamPoints[team];
+  }
+
+  return 0;
 }
 
 function teamWithPoint(team) {
@@ -25,16 +29,16 @@ function initIfUndefinedTeamPoint(team) {
 }
 
 function initCountriesPoints(match) {
-  initIfUndefinedTeamPoint(match.home_team.country);
-  initIfUndefinedTeamPoint(match.away_team.country);
+  initIfUndefinedTeamPoint(match.home_team.name);
+  initIfUndefinedTeamPoint(match.away_team.name);
 }
 
 function addShutOutPoints(match) {
   if (match.home_team.goals === 0) {
-    teamPoints[match.away_team.country] += 1;
+    teamPoints[match.away_team.name] += 1;
   }
   if (match.away_team.goals === 0) {
-    teamPoints[match.home_team.country] += 1;
+    teamPoints[match.home_team.name] += 1;
   }
 }
 
@@ -54,15 +58,15 @@ async function calcTeamsPoint() {
     initCountriesPoints(match);
 
     if (match.winner === 'Draw') {
-      teamPoints[match.away_team.country] += 1;
-      teamPoints[match.home_team.country] += 1;
+      teamPoints[match.away_team.name] += 1;
+      teamPoints[match.home_team.name] += 1;
     } else {
       teamPoints[match.winner] += 3;
     }
 
     if (isPeanlties(match)) {
-      teamPoints[match.away_team.country] += 1;
-      teamPoints[match.home_team.country] += 1;
+      teamPoints[match.away_team.name] += 1;
+      teamPoints[match.home_team.name] += 1;
       teamPoints[match.winner] -= 1;
     }
     addShutOutPoints(match);

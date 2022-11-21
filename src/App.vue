@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <toolbar/>
-    <v-content >
+    <toolbar />
+    <v-content>
       <v-container fill-height>
         <v-layout>
           <v-flex xs12 md8 offset-md2>
-              <router-view/>
+            <router-view />
           </v-flex>
         </v-layout>
       </v-container>
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import Toolbar from "./components/Toolbar.vue";
+import Toolbar from './components/Toolbar.vue';
 
 export default {
   components: {
-    Toolbar
-  }
+    Toolbar,
+  },
 };
 </script>

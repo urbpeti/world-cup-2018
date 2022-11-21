@@ -1,17 +1,15 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="bets"
-    hide-actions
-  >
+  <v-data-table :headers="headers" :items="bets" hide-actions>
     <template slot="items" slot-scope="props">
-      <td v-for="header in headers" :key="header.value" class="team-with-score">{{props.item[header.value]}}</td>
+      <td v-for="header in headers" :key="header.value" class="team-with-score">
+        {{ props.item[header.value] }}
+      </td>
     </template>
   </v-data-table>
 </template>
 
 <script>
-import { convertDataToTable } from "../betUtils";
+import { convertDataToTable } from '../betUtils';
 
 export default {
   async mounted() {
@@ -22,9 +20,9 @@ export default {
   data() {
     return {
       headers: [],
-      bets: []
+      bets: [],
     };
-  }
+  },
 };
 </script>
 

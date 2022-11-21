@@ -27,7 +27,7 @@
       <v-icon class="mx-3">home</v-icon>
       <v-toolbar-title class="mr-5 align-center">
         <span class="title">
-          World Cup 2018
+          World Cup 2022
         </span>
       </v-toolbar-title>
     </v-toolbar>
