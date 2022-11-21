@@ -6,7 +6,7 @@ import About from './views/About.vue';
 Vue.use(Router);
 
 export default new Router({
-  base: '/~up1302/worldcup2018',
+  base: '/',
   routes: [
     {
       path: '/',
