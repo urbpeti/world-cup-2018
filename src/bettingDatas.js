@@ -1,4 +1,5 @@
-const users = [
+/* eslint import/prefer-default-export: 0 */
+export const users = [
   {
     name: 'Alanna',
     bettedCountries: [
@@ -468,7 +469,3 @@ const users = [
     ],
   },
 ];
-
-module.exports = {
-  users,
-};

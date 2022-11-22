@@ -1,6 +1,7 @@
 /* eslint import/prefer-default-export: 0 */
+import { users } from './bettingDatas';
+
 const { getAllMathStatistic } = require('./API');
-const { users } = require('./bettingDatas');
 
 const bettingGroupsCount = 8;
 
