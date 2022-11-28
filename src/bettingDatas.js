@@ -468,4 +468,30 @@ export const users = [
       'Qatar',
     ],
   },
+  {
+    name: 'Nick',
+    bettedCountries: [
+      'France',
+      'Brazil',
+      'England',
+      'Mexico',
+      'Korea Republic',
+      'Senegal',
+      'Wales',
+      'Iran',
+    ],
+  },
+  {
+    name: 'Juan',
+    bettedCountries: [
+      'France',
+      'Brazil',
+      'Denmark',
+      'Uruguay',
+      'Ecuador',
+      'Senegal',
+      'Serbia',
+      'Ghana',
+    ],
+  },
 ];
