@@ -78,6 +78,10 @@ export async function convertDataToTable() {
   await calcTeamsPoint();
   const headers = [
     {
+      text: 'Position',
+      value: 'position',
+    },
+    {
       text: 'Entrant',
       value: 'name',
     },
@@ -129,7 +133,15 @@ export async function convertDataToTable() {
   });
 
   usersWithData.sort((a, b) => b.points - a.points);
-  const rows = usersWithData;
+  let prevScore = Number.MAX_VALUE;
+  let place = 0;
+  const rows = usersWithData.map((data, index) => {
+    if (data.points !== prevScore) {
+      prevScore = data.points;
+      place = index + 1;
+    }
+    return { position: place, ...data };
+  });
   return {
     headers,
     rows,

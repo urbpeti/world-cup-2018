@@ -4,7 +4,8 @@
     <v-content>
       <v-container fill-height>
         <v-layout>
-          <v-flex xs12 md8 offset-md2>
+          <!-- offset-md2 -->
+          <v-flex xs12 md12 >
             <router-view />
           </v-flex>
         </v-layout>
