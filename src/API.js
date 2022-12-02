@@ -25,9 +25,28 @@ export async function getTeamResults() {
 }
 
 export async function getAllMathStatistic() {
+  const matchOverrides = {
+    38: {
+      away_team: {
+        country: 'FRA', name: 'France', goals: 0, penalties: 0,
+      },
+      winner: 'Tunisia',
+      winner_code: 'TUN',
+    },
+  };
   try {
     const response = await fetch(ALL_MATH_STAT_URL);
-    return response.json();
+    const matches = await response.json();
+    console.log(matches);
+    return matches.map(match => {
+      let m = match;
+      const overrides = matchOverrides[match.id];
+      if (overrides !== undefined) {
+        m = { ...match, ...overrides };
+        console.log(m);
+      }
+      return m;
+    });
   } catch (error) {
     console.error(error);
     return error;
